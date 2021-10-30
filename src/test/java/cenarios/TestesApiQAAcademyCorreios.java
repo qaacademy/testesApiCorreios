@@ -3,10 +3,14 @@ package cenarios;
 import org.junit.Test;
 
 import groovyjarjarantlr4.v4.runtime.atn.SemanticContext.AND;
+import io.restassured.http.ContentType;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class TestesApiQAAcademyCorreios {
 	
@@ -46,6 +50,84 @@ public class TestesApiQAAcademyCorreios {
 			.body("places[0].'place name'", equalTo("São Paulo"));
 		
 	}
+	
+	@Test
+	public void testeApiCorreiosContentType() {
+		String url = "https://api.zippopotam.us/BR/01000-000";
+
+		given()
+			.log().all()
+		.when()
+			.get(url)
+		.then()
+			.log().all()
+			.assertThat()
+			.statusCode(200)
+			.contentType(ContentType.JSON);
+		
+	}
+	
+	
+	@Test
+	public void testeApiCorreiosHeader() {
+		String url = "https://api.zippopotam.us/BR/01000-000";
+		
+		Map<String, String> map_header = new HashMap<String, String>(); 
+		map_header.put("Content-Type", "application/json"); 
+		map_header.put("Content-Type", "application/json"); 
+		map_header.put("Content-Type", "application/json"); 
+		map_header.put("Content-Type", "application/json"); 
+		
+		Map<String, String> map_queryParam = new HashMap<String, String>(); 
+		
+		
+		
+
+		given()
+			.log().all()
+			.headers(map_header)
+			.queryParams(map_queryParam)
+		.when()
+			.get(url)
+		.then()
+			.log().all()
+			.header("Content-Type", equalTo("application/json"))
+			.assertThat()
+			.statusCode(200);
+		
+	}
+	
+	@Test
+	public void testeApiCorreiosSucessoEqualToExtract() {
+		String url = "https://api.zippopotam.us/BR/01000-000";
+
+	String retornoPath = 
+			given()
+		.when()
+			.get(url)
+		.then()
+			.assertThat()
+			.statusCode(200)
+			.extract()
+			.path("places[0].longitude");
+	
+	
+	given()
+	.log().all()
+	.header("token", retornoPath)
+.when()
+	.get(url)
+.then()
+	.log().all()
+	.header("Content-Type", equalTo("application/json"))
+	.assertThat()
+	.statusCode(200);
+	
+	System.out.println(retornoPath);
+		
+	}
+	
+	
 	
 
 }
