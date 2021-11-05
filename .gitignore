@@ -25,3 +25,6 @@ hs_err_pid*
 .classpath
 .project
 .settings/
+.DS_Store
+src/.DS_Store
+src/test/.DS_Store
