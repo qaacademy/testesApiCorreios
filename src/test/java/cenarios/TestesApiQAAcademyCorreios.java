@@ -45,7 +45,7 @@ public class TestesApiQAAcademyCorreios {
 			.log().all()
 			.assertThat()
 			.statusCode(200)
-			.body("places[0].longitude",equalTo("-46.635"))
+			.body("places[2].longitude",equalTo("-46.635"))
 			.and()
 			.body("places[0].'place name'", equalTo("São Paulo"));
 		
@@ -79,9 +79,9 @@ public class TestesApiQAAcademyCorreios {
 		map_header.put("Content-Type", "application/json"); 
 		
 		Map<String, String> map_queryParam = new HashMap<String, String>(); 
+		map_queryParam.put("chave", "valor");
 		
-		
-		
+		String authententication = "asdasdasdas8484aosdhaisudha s.a6d654sd65a4sd65a4 as as46d5a4s6d5as4";
 
 		given()
 			.log().all()
