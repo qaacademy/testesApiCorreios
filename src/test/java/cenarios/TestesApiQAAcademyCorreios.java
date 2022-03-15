@@ -33,23 +33,6 @@ public class TestesApiQAAcademyCorreios {
 			.body(containsString("Embu das Artes"));		
 	}
 	
-	@Test
-	public void testeApiCorreiosSucessoEqualTo() {
-		String url = "https://api.zippopotam.us/BR/01000-000";
-
-		given()
-			.log().all()
-		.when()
-			.get(url)
-		.then()
-			.log().all()
-			.assertThat()
-			.statusCode(200)
-			.body("places[2].longitude",equalTo("-46.635"))
-			.and()
-			.body("places[0].'place name'", equalTo("São Paulo"));
-		
-	}
 	
 	@Test
 	public void testeApiCorreiosContentType() {
